@@ -12,7 +12,7 @@ class SubscriptionsController < ApplicationController
 	def show 
 		@subscription = Subscription.find_by(id: params[:id])
 		if @subscription
-			render json: @tweet
+			render json: @subscription
 		else
 			render status: 400, nothing: true
 		end
