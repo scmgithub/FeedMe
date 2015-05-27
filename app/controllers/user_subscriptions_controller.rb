@@ -18,9 +18,27 @@ class UserSubscriptionsController < ApplicationController
 		end
 	end
 
-	# create
+	def create
+		@user_subscription = UserSubscription.create(user_subscription_params)
+		if @user_subscription.save
+			render json: @user_subscription
+		else
+			render status: 400, nothing: true
+		end
+	end
+
 	# update
-	# destroy
+	def destroy
+		@user_subscription = UserSubscription.where("subscription_id = ? and user_id = ?",params[:id], 2)
+		if @user_subscription.length > 1
+			puts "More than one user subscription.  I'm scared."
+		end
+		if @user_subscription[0].destroy
+			render json: {}
+		else
+			render status: 400, nothing: true
+		end
+	end
 
 	private
 	def user_subscription_params
