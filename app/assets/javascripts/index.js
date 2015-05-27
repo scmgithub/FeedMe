@@ -4,18 +4,24 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.open('GET', 'http://localhost:3000/subscriptions.json');
     xhr.addEventListener('load', function() {
       var subs = JSON.parse(xhr.responseText);
-      
-      checkedStatus = isChecked();
-      console.log(checkedStatus);
-
-      subs.forEach(function(sub) {
-        addSub(sub); //go to line 30
-      })
+      var response;
+     
+      id = 1; // eventually this id will be defined by the login authentication
+      var xhr2 = new XMLHttpRequest();
+      xhr2.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
+      xhr2.addEventListener('load', function() {
+        response = JSON.parse(xhr2.responseText);
+  //    console.log(response);
+        subs.forEach(function(sub) {
+          addSub(sub, response); //go to line 30
+        })
+      });
+      xhr2.send();
     });
     xhr.send();
   }
 
-  addAllSubs(); //go to line 1
+  addAllSubs();
 
   var deleteSub = function() {
     var li = this.parentNode;
@@ -31,33 +37,40 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.send();
   };
 
-   var isChecked = function(){
-      id = 1; // eventually this id will be defined by the login authentication
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
-      xhr.addEventListener('load', function() {
+  //  var isChecked = function(){
+  //     id = 1; // eventually this id will be defined by the login authentication
+  //     var xhr = new XMLHttpRequest();
+  //     xhr.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
+  //     xhr.addEventListener('load', function() {
         
-          var response = JSON.parse(xhr.responseText);
-          console.log(response);
-        
-      });
-      xhr.send();
-  }
+  //         var response = JSON.parse(xhr.responseText);
+  // //        console.log(response);
+  //       return response;
+  //     });
+  //     xhr.send();
+  // }
 
-  var addSub = function(sub) {
+  var addSub = function(sub, sublist) {
     
     var li = document.createElement('li');
-    setLiToSub(li, sub); // go to line 37
+    setLiToSub(li, sub, sublist); // go to line 37
     var ul = document.getElementById('subsList')
     ul.appendChild(li);
   }
 
-  var setLiToSub = function(li, sub) {
+  var setLiToSub = function(li, sub, sublist) {
     li.setAttribute('id', 'sub' + sub.id);
     li.innerHTML = "";
 
     var subCheck = document.createElement('input');
     subCheck.type = "checkbox";
+    subCheck.checked = false;
+    for (var i=0; i<sublist.length; i++) {
+      if (sublist[i].subscription_id === sub.id) {
+        subCheck.checked= true;
+      }
+    }
+    
     var subText = sub.keyword;
     var subTextNode = document.createTextNode(subText);
     li.appendChild(subCheck);
