@@ -10,8 +10,8 @@ class UserSubscriptionsController < ApplicationController
 	end
 
 	def show
-		@user_subscription = UserSubscription.find_by(id: params[:id])
-		if @user_subsciption
+		@user_subscription = UserSubscription.where("user_id = ?", params[:id])
+		if @user_subscription
 			render json: @user_subscription
 		else
 			render status: 400, nothing: true
