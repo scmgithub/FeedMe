@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   "subscriptions#index"
   resources :subscriptions
   resources :users
+  resources :user_subscriptions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
