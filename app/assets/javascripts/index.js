@@ -11,9 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
       xhr2.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
       xhr2.addEventListener('load', function() {
         response = JSON.parse(xhr2.responseText);
-  //    console.log(response);
         subs.forEach(function(sub) {
-          addSub(sub, response); //go to line 30
+          addSub(sub, response);
         })
       });
       xhr2.send();
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   var addSub = function(sub, sublist) {
-    
     var li = document.createElement('li');
     setLiToSub(li, sub, sublist); // go to line 37
     var ul = document.getElementById('subsList')
@@ -59,19 +57,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     subCheck.addEventListener('change', function() {
-      // var xhr = new XMLHttpRequest();
-      // xhr.open('POST', 'http://localhost:3000/subscriptions');
-      // xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      // xhr.addEventListener('load', function() {
-      //   var returnedSub = JSON.parse(xhr.responseText);
-      //   addSub(returnedSub); //go to line 30
-      //  newName.value = '';
-      // });
-
       if (subCheck.checked) {
         console.log("now on");
+        var xhr= new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:3000/user_subscriptions');
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.addEventListener('load', function() {
+          if(JSON.parse(xhr.status !== 200)) {
+            console.log("Unable to add user_subscription!");
+            console.log("sub.id:")
+            console.log(sub.id)
+          }
+        });
+        var newUserSub = { user_id: 2, subscription_id: sub.id }
+        xhr.send(JSON.stringify(newUserSub));
       } else {
         console.log("now off");
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', 'http://localhost:3000/user_subscriptions/' + sub.id);
+        xhr.addEventListener('load', function() {
+          if(JSON.parse(xhr.status !== 200)) {
+            console.log("Unable to remove user_subscription!");
+          }
+        });
+        xhr.send();
       }
     });
     
