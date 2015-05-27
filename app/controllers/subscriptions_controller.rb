@@ -4,7 +4,7 @@ class SubscriptionsController < ApplicationController
 	def index
 		@subscriptions = Subscription.all
 		respond_to do |format|
-			format.html { render :index}
+			format.html { render :index }
 			format.json { render json: @subscriptions}
 		end
 	end
