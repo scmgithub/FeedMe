@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var subs = JSON.parse(xhr.responseText);
       var response;
      
-      id = 1; // eventually this id will be defined by the login authentication
+      id = 2; // eventually this id will be defined by the login authentication
       var xhr2 = new XMLHttpRequest();
       xhr2.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
       xhr2.addEventListener('load', function() {
@@ -37,19 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.send();
   };
 
-  //  var isChecked = function(){
-  //     id = 1; // eventually this id will be defined by the login authentication
-  //     var xhr = new XMLHttpRequest();
-  //     xhr.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
-  //     xhr.addEventListener('load', function() {
-        
-  //         var response = JSON.parse(xhr.responseText);
-  // //        console.log(response);
-  //       return response;
-  //     });
-  //     xhr.send();
-  // }
-
   var addSub = function(sub, sublist) {
     
     var li = document.createElement('li');
@@ -70,6 +57,23 @@ document.addEventListener('DOMContentLoaded', function() {
         subCheck.checked= true;
       }
     }
+
+    subCheck.addEventListener('change', function() {
+      // var xhr = new XMLHttpRequest();
+      // xhr.open('POST', 'http://localhost:3000/subscriptions');
+      // xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      // xhr.addEventListener('load', function() {
+      //   var returnedSub = JSON.parse(xhr.responseText);
+      //   addSub(returnedSub); //go to line 30
+      //  newName.value = '';
+      // });
+
+      if (subCheck.checked) {
+        console.log("now on");
+      } else {
+        console.log("now off");
+      }
+    });
     
     var subText = sub.keyword;
     var subTextNode = document.createTextNode(subText);
