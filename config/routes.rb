@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  "subscriptions#index"
+
+  root "subscriptions#index"
   resources :subscriptions
   resources :users
   resources :user_subscriptions
