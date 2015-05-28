@@ -1,0 +1,22 @@
+<form action="/session" method="POST">
+<label for = "user_name">
+	Username:
+</label>
+<input name="user_name" type="text">
+
+<label for = "password">
+	Password:
+</label>
+<input name="password" type="password">
+<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+<button>Sign In</button>
+</form>
+
+<form action="/users" method="POST">
+	<label for = "name">Username:</label>
+	<input name = "name">
+	<label for = "password">Password:</label>
+	<input name = "password" type = "password">
+	<input name = "authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<button>Sign Up!</button>
+</form>

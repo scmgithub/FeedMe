@@ -25,19 +25,30 @@ id = 2; // eventually this id will be defined by the login authentication
   }
 
   var refreshNews = function() {
+    var ul = document.getElementById('newsFeed')
+    ul.innerHTML="";
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
     xhr.addEventListener('load', function() {
-    //  var sublist = JSON.parse(xhr.responseText);
-      var sublist = xhr.responseText;
-console.log("Sublist:")
-console.log(sublist)
-console.log("so far")
-      sublist.forEach(function(story) {
-        console.log(story.url);
-      });
+      var sublist = JSON.parse(xhr.responseText);
+       sublist.forEach(function(story) {
+          addStoryToDOM(story, ul);
+       });
     });
     xhr.send();
+  }
+
+  var addStoryToDOM = function(story, ul) {
+    var li = document.createElement('li');
+    setLiToStory(li, story);
+    ul.appendChild(li);
+  }
+
+  var setLiToStory = function(li, story) {
+    li.innerHTML = "";
+    var storyText = story
+    var storyTextNode = document.createTextNode(storyText);
+    li.appendChild(storyTextNode);
   }
 
   addAllSubs();
@@ -79,7 +90,6 @@ console.log("so far")
 
     subCheck.addEventListener('change', function() {
       if (subCheck.checked) {
-        console.log("now on");
         var xhr= new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:3000/user_subscriptions');
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -88,22 +98,23 @@ console.log("so far")
             console.log("Unable to add user_subscription!");
             console.log("sub.id:")
             console.log(sub.id)
+          } else {
+            refreshNews();            
           }
         });
         var newUserSub = { user_id: 2, subscription_id: sub.id }
         xhr.send(JSON.stringify(newUserSub));
-        refreshNews();
       } else {
-        console.log("now off");
         var xhr = new XMLHttpRequest();
         xhr.open('DELETE', 'http://localhost:3000/user_subscriptions/' + sub.id);
         xhr.addEventListener('load', function() {
           if(JSON.parse(xhr.status !== 200)) {
             console.log("Unable to remove user_subscription!");
+          } else {
+            refreshNews();            
           }
         });
         xhr.send();
-        refreshNews();
       }
     });
     
@@ -178,7 +189,7 @@ console.log("so far")
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function() {
       var returnedSub = JSON.parse(xhr.responseText);
-      addSub(returnedSub); //go to line 30
+      addSub(returnedSub);
       newName.value = '';
     });
 
