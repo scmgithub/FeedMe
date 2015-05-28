@@ -2,9 +2,12 @@ Rails.application.routes.draw do
 
 
   root "subscriptions#index"
+  
   resources :subscriptions
-  resources :users
+  resources :users, only:[:create]
   resources :user_subscriptions
+  resource :session, only: [:new, :create, :destroy]
+  resource :secret, only: [:show]
   get 'user_subscriptions/stories/:id' => 'user_subscriptions#stories'
 
   # The priority is based upon order of creation: first created -> highest priority.
