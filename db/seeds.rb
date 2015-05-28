@@ -9,11 +9,12 @@
 User.create(name: 'bruce', password: 'password')
 User.create(name: 'alfred', password: 'password')
 
-Subscription.create(name: "twitter", keyword: "taylor swift", url: "www.testUrl.org/")
-Subscription.create(name: "twitter", keyword: "batman", url: "www.testUrl.org/")
-Subscription.create(name: "twitter", keyword: "joker", url: "www.testUrl.org/")
-Subscription.create(name: "twitter", keyword: "celine dion", url: "www.testUrl.org/")
-Subscription.create(name: "twitter", keyword: "winston churchill", url: "www.testUrl.org/")
+Subscription.create(name: "twitter", keyword: "taylor swift", url: "www.t-swizz.org/")
+Subscription.create(name: "twitter", keyword: "batman", url: "www.batman.org/")
+Subscription.create(name: "twitter", keyword: "joker", url: "www.joker.org/")
+Subscription.create(name: "twitter", keyword: "celine dion", url: "www.canadarox.org/")
+Subscription.create(name: "twitter", keyword: "winston churchill", url: "www.winston.org/")
+#Subscription.create(name: "NYTimes", keyword: "pugs", url: "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=pugs&api-key=aa1260c72c4d669a7ecd0d1aa8725430:6:8505067")
 
 UserSubscription.create(user_id: 1, subscription_id: 3)
 UserSubscription.create(user_id: 1, subscription_id: 2)
