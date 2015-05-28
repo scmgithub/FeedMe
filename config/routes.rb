@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
 
-  root "subscriptions#index"
-  
+  root "sessions#new"
+
   resources :subscriptions
   resources :users, only:[:create]
   resources :user_subscriptions
