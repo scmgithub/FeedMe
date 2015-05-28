@@ -19,10 +19,13 @@ class UserSubscriptionsController < ApplicationController
 	end
 
 	def stories
-		puts "IN STORIES METHOD"
+		@url_list = []
 		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
 		if @user_subscriptions
-			render json: @user_subscription
+			@user_subscriptions.each do |sub|
+				@url_list.push(sub.subscription.url)
+			end
+			render json: @url_list
 		else
 			render status: 400, nothing: true
 		end

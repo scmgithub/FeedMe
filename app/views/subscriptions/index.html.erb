@@ -10,3 +10,8 @@
 
 <ul id="newsFeed">
 </ul>
+<form method="POST" action="/session">
+	<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+	<input name="_method" value="DELETE" type="hidden">
+	<button>Logout</button>
+</form>
