@@ -18,6 +18,18 @@ class UserSubscriptionsController < ApplicationController
 		end
 	end
 
+	def stories
+		puts "IN STORIES METHOD"
+		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
+		if @user_subscriptions
+			puts @user_subscriptions
+			#render @user_subscriptions[0].subscription.url
+			render json: @user_subscription.subscriptions.url
+		else
+			render status: 400, nothing: true
+		end
+	end
+
 	def create
 		@user_subscription = UserSubscription.create(user_subscription_params)
 		if @user_subscription.save
