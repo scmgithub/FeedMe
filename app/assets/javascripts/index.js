@@ -26,9 +26,13 @@ id = 2; // eventually this id will be defined by the login authentication
 
   var refreshNews = function() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/user_subscriptions/' + id);
+    xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
     xhr.addEventListener('load', function() {
-      var sublist = JSON.parse(xhr.responseText);
+    //  var sublist = JSON.parse(xhr.responseText);
+      var sublist = xhr.responseText;
+console.log("Sublist:")
+console.log(sublist)
+console.log("so far")
       sublist.forEach(function(story) {
         console.log(story.url);
       });
