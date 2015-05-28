@@ -189,7 +189,7 @@ id = 2; // eventually this id will be defined by the login authentication
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function() {
       var returnedSub = JSON.parse(xhr.responseText);
-      addSub(returnedSub); //go to line 30
+      addSub(returnedSub);
       newName.value = '';
     });
 
