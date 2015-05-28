@@ -22,9 +22,7 @@ class UserSubscriptionsController < ApplicationController
 		puts "IN STORIES METHOD"
 		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
 		if @user_subscriptions
-			puts @user_subscriptions
-			#render @user_subscriptions[0].subscription.url
-			render json: @user_subscription.subscriptions.url
+			render json: @user_subscription
 		else
 			render status: 400, nothing: true
 		end
