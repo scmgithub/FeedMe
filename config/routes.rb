@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   resources :subscriptions
   resources :users
   resources :user_subscriptions
+  #get 'user_subscriptions/stories/:id' => 'user_subscriptions#stories'
+
+  resource :user_subscriptions do 
+    get 'stories' 
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

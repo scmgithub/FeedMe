@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+
+id = 2; // eventually this id will be defined by the login authentication
+
+
   var addAllSubs = function() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:3000/subscriptions.json');
@@ -6,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var subs = JSON.parse(xhr.responseText);
       var response;
      
-      id = 2; // eventually this id will be defined by the login authentication
       var xhr2 = new XMLHttpRequest();
       xhr2.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
       xhr2.addEventListener('load', function() {
@@ -20,7 +24,20 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.send();
   }
 
+  var refreshNews = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:3000/user_subscriptions/' + id);
+    xhr.addEventListener('load', function() {
+      var sublist = JSON.parse(xhr.responseText);
+      sublist.forEach(function(story) {
+        console.log(story.url);
+      });
+    });
+    xhr.send();
+  }
+
   addAllSubs();
+  refreshNews();
 
   var deleteSub = function() {
     var li = this.parentNode;
@@ -71,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         var newUserSub = { user_id: 2, subscription_id: sub.id }
         xhr.send(JSON.stringify(newUserSub));
+        refreshNews();
       } else {
         console.log("now off");
         var xhr = new XMLHttpRequest();
@@ -81,10 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
         xhr.send();
+        refreshNews();
       }
     });
     
-    var subText = sub.keyword;
+    var subText = sub.name + ": "+ sub.keyword;
     var subTextNode = document.createTextNode(subText);
     li.appendChild(subCheck);
     li.appendChild(subTextNode);
