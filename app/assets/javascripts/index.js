@@ -13,7 +13,24 @@ var getId = function() {
   xhr.send()
 }
 
+
+
+
+  // var getTwitter = function() {
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open('GET', 'http://localhost:3000/twitter/');
+  //   xhr.addEventListener('load', function(){
+  //     var tweets = JSON.parse(xhr.responseText);
+  //     console.log(tweets);
+  //     debugger
+
+  //     //addStoryToDOM(tweet, ul)
+  //   });
+  //   xhr.send();
+  // }
+
 getId();
+
 
   var addAllSubs = function() {
     var xhr = new XMLHttpRequest();
@@ -48,11 +65,39 @@ getId();
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
     xhr.addEventListener('load', function() {
+
       var storylist = JSON.parse(xhr.responseText);
-      for (var i=0; i<storylist.length; i++) {
-        storylist[i].response.docs.forEach(function(story) {
-            addStoryToDOM(story.source + ": " + story.headline.main, ul);
-        });
+
+      
+      // console.log(storylist[0].response.docs[0]);
+
+      
+      //the following loop is designed to obtain data from JSON objects returned from google's API                    
+      //needs if statement asking if the incoming is google-structured ... if not, 
+      //move to the other for loop, which is designed for NYT.
+      for (var i = 0; i < storylist.length; i++){
+        
+        if(typeof storylist[i] === 'string'){
+
+          for(var k = 0; k < JSON.parse(storylist[i]).responseData.results.length; k++){
+              
+            // console.log(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
+
+            addStoryToDOM(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl, ul)
+          }
+          
+        }else if(typeof storylist[i] === 'object'){
+
+          // JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
+
+          // for (var k = 0; k < storylist[i].response.docs.length; k++) {
+
+            storylist[i].response.docs.forEach(function(story) {
+
+                addStoryToDOM(story.web_url, ul);
+            });
+          // }
+        }
       }
     });
     xhr.send();
