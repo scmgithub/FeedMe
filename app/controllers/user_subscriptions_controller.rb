@@ -1,3 +1,4 @@
+require 'HTTParty'
 class UserSubscriptionsController < ApplicationController
 	protect_from_forgery with: :null_session
 
@@ -19,13 +20,18 @@ class UserSubscriptionsController < ApplicationController
 	end
 
 	def stories
-		@url_list = []
+#		@url_list = []
+		@content = []
 		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
 		if @user_subscriptions
 			@user_subscriptions.each do |sub|
-				@url_list.push(sub.subscription.url)
+#puts JSON.parse(sub.subscription.url)
+#				@url_list.push(sub.subscription.url)
+				@content.push(HTTParty.get(sub.subscription.url))
 			end
-			render json: @url_list
+#			render json: @url_list
+			puts @content
+			render json: @content
 		else
 			render status: 400, nothing: true
 		end
