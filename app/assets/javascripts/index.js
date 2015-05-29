@@ -24,24 +24,26 @@ id = 2; // eventually this id will be defined by the login authentication
     xhr.send();
   }
 
-  var refreshNews = function() {
-    var ul = document.getElementById('newsFeed')
-    ul.innerHTML="";
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
-    xhr.addEventListener('load', function() {
-      var sublist = JSON.parse(xhr.responseText);
-       sublist.forEach(function(story) {
-          addStoryToDOM(story, ul);
-       });
-    });
-    xhr.send();
-  }
-
   var addStoryToDOM = function(story, ul) {
     var li = document.createElement('li');
     setLiToStory(li, story);
     ul.appendChild(li);
+  }
+
+  var refreshNews = function() {
+    var ul = document.getElementById('newsFeed');
+    ul.innerHTML="";
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
+    xhr.addEventListener('load', function() {
+      var storylist = JSON.parse(xhr.responseText);
+      for (var i=0; i<storylist.length; i++) {
+        storylist[i].response.docs.forEach(function(story) {
+            addStoryToDOM(story.web_url, ul);
+        });
+      }
+    });
+    xhr.send();
   }
 
   var setLiToStory = function(li, story) {
@@ -189,7 +191,7 @@ id = 2; // eventually this id will be defined by the login authentication
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function() {
       var returnedSub = JSON.parse(xhr.responseText);
-      addSub(returnedSub); //go to line 30
+      addSub(returnedSub);
       newName.value = '';
     });
 
