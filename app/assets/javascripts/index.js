@@ -120,8 +120,6 @@ getId();
         xhr.send(JSON.stringify(newUserSub));
       } else {
         var xhr = new XMLHttpRequest();
-  console.log("URL:")
-  console.log('http://localhost:3000/user_subscriptions/' + sub.id)
         xhr.open('DELETE', 'http://localhost:3000/user_subscriptions/' + sub.id);
         xhr.addEventListener('load', function() {
           if(JSON.parse(xhr.status !== 200)) {
