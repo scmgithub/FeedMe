@@ -5,13 +5,24 @@ var id;
 var getId = function() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://localhost:3000/session')
+  
   xhr.addEventListener('load', function() {
+
+    
+    
     var user = JSON.parse(xhr.responseText);
+    
+    
     id = user.id;
+
     addAllSubs();
+  
   });
-  xhr.send()
+
+  xhr.send();
+  
 }
+
 
 
 
@@ -40,9 +51,13 @@ getId();
       var response;
      
       var xhr2 = new XMLHttpRequest();
+
       xhr2.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
+
       xhr2.addEventListener('load', function() {
+        
         response = JSON.parse(xhr2.responseText);
+
         subs.forEach(function(sub) {
           addSub(sub, response);
         })
