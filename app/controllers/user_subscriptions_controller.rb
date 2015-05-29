@@ -44,9 +44,9 @@ class UserSubscriptionsController < ApplicationController
 	# update
 	
 	def destroy
-		user_id = User.find(session['user_id'])
-		puts user_id.id
-		@user_subscription = UserSubscription.where("subscription_id = ? and user_id = ?",params[:id], user_id.id)
+		# user_id = User.find(session['user_id'])
+		# puts user_id.id
+		@user_subscription = UserSubscription.where("subscription_id = ? and user_id = ?",params[:id], User.find(session['user_id']))
 		if @user_subscription.length > 1
 			puts "More than one user subscription.  I'm scared."
 		end
