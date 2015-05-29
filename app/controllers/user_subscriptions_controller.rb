@@ -1,6 +1,7 @@
 require 'HTTParty'
 class UserSubscriptionsController < ApplicationController
 	protect_from_forgery with: :null_session
+	skip_before_filter  :verify_authenticity_token
 
 	def index
 		@user_subscriptions = UserSubscription.all
@@ -44,9 +45,11 @@ class UserSubscriptionsController < ApplicationController
 	# update
 	
 	def destroy
-		# user_id = User.find(session['user_id'])
-		# puts user_id.id
-		@user_subscription = UserSubscription.where("subscription_id = ? and user_id = ?",params[:id], User.find(session['user_id']))
+
+		user_id = User.find(session['user_id'])
+
+		@user_subscription = UserSubscription.where("subscription_id = ? and user_id = ?",params[:id], user_id.id)
+
 		if @user_subscription.length > 1
 			puts "More than one user subscription.  I'm scared."
 		end
