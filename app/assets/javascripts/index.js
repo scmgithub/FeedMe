@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
 var id;
+
 var getId = function() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://localhost:3000/session')
@@ -8,12 +9,11 @@ var getId = function() {
     var user = JSON.parse(xhr.responseText);
     id = user.id;
     addAllSubs();
-    refreshNews();
   });
   xhr.send()
 }
+
 getId();
-console.log(id);
 
   var addAllSubs = function() {
     var xhr = new XMLHttpRequest();
@@ -29,6 +29,7 @@ console.log(id);
         subs.forEach(function(sub) {
           addSub(sub, response);
         })
+        refreshNews();
       });
       xhr2.send();
     });
@@ -119,6 +120,8 @@ console.log(id);
         xhr.send(JSON.stringify(newUserSub));
       } else {
         var xhr = new XMLHttpRequest();
+  console.log("URL:")
+  console.log('http://localhost:3000/user_subscriptions/' + sub.id)
         xhr.open('DELETE', 'http://localhost:3000/user_subscriptions/' + sub.id);
         xhr.addEventListener('load', function() {
           if(JSON.parse(xhr.status !== 200)) {
