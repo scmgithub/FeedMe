@@ -39,7 +39,7 @@ id = 2; // eventually this id will be defined by the login authentication
       var storylist = JSON.parse(xhr.responseText);
       for (var i=0; i<storylist.length; i++) {
         storylist[i].response.docs.forEach(function(story) {
-            addStoryToDOM(story.web_url, ul);
+            addStoryToDOM(story.source + ": " + story.headline.main, ul);
         });
       }
     });
@@ -64,6 +64,7 @@ id = 2; // eventually this id will be defined by the login authentication
     xhr.addEventListener('load', function() {
       if(JSON.parse(xhr.status === 200)) {
         li.remove();
+        refreshNews();
       }
     });
 
