@@ -7,9 +7,8 @@ var getId = function() {
   xhr.addEventListener('load', function() {
     var user = JSON.parse(xhr.responseText);
     id = user.id;
-      addAllSubs();
+    addAllSubs();
     refreshNews();
-
   });
   xhr.send()
 }
@@ -51,7 +50,7 @@ console.log(id);
       var storylist = JSON.parse(xhr.responseText);
       for (var i=0; i<storylist.length; i++) {
         storylist[i].response.docs.forEach(function(story) {
-            addStoryToDOM(story.web_url, ul);
+            addStoryToDOM(story.source + ": " + story.headline.main, ul);
         });
       }
     });
@@ -75,6 +74,7 @@ console.log(id);
     xhr.addEventListener('load', function() {
       if(JSON.parse(xhr.status === 200)) {
         li.remove();
+        refreshNews();
       }
     });
 
