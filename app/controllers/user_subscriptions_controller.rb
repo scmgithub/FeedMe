@@ -20,17 +20,12 @@ class UserSubscriptionsController < ApplicationController
 	end
 
 	def stories
-#		@url_list = []
 		@content = []
 		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
 		if @user_subscriptions
 			@user_subscriptions.each do |sub|
-#puts JSON.parse(sub.subscription.url)
-#				@url_list.push(sub.subscription.url)
 				@content.push(HTTParty.get(sub.subscription.url))
 			end
-#			render json: @url_list
-			puts @content
 			render json: @content
 		else
 			render status: 400, nothing: true
@@ -47,6 +42,7 @@ class UserSubscriptionsController < ApplicationController
 	end
 
 	# update
+	
 	def destroy
 		@user_subscription = UserSubscription.where("subscription_id = ? and user_id = ?",params[:id], 2)
 		if @user_subscription.length > 1
