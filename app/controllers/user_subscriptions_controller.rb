@@ -59,10 +59,6 @@ class UserSubscriptionsController < ApplicationController
 
 	# end
 
-
-
-	
-
 	def create
 		@user_subscription = UserSubscription.create(user_subscription_params)
 		if @user_subscription.save
