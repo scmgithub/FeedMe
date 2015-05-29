@@ -30,7 +30,7 @@ class UserSubscriptionsController < ApplicationController
 				@content.push(HTTParty.get(sub.subscription.url))
 			end
 #			render json: @url_list
-			puts @content
+			
 			render json: @content
 		else
 			render status: 400, nothing: true
@@ -48,7 +48,9 @@ class UserSubscriptionsController < ApplicationController
 
 	# update
 	def destroy
-		@user_subscription = UserSubscription.where("subscription_id = ? and user_id = ?",params[:id], 2)
+		user_id = User.find(session['user_id'])
+		puts user_id.id
+		@user_subscription = UserSubscription.where("subscription_id = ? and user_id = ?",params[:id], user_id.id)
 		if @user_subscription.length > 1
 			puts "More than one user subscription.  I'm scared."
 		end
