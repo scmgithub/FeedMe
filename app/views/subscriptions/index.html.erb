@@ -6,6 +6,31 @@
 	<input name="_method" value="DELETE" type="hidden">
 	<button>Logout</button>
 </form>
+<form method="POST" action="/subscriptions">
+	<lable for = "name">Twitter</lable>
+	<input name = "keyword">
+	<input name = "name" value = "twitter" type="hidden">
+	
+	<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+	<button>Add</button>
+	</form>
+<form method="POST" action="/subscriptions">
+	<lable for = "name">New York Times</lable>
+	<input name = "keyword" type = "text">
+	<input name = "name" value = "NYTimes" type = "hidden">
+	
+	<input name = "authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+	<button>Add</button>
+	</form>
+
+<form method="POST" action="/subscriptions">
+	<lable for = "name">Google News</lable>
+	<input name = "keyword" type = "text">
+	<input name = "name" value = "google" type = "hidden">
+	
+	<input name = "authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+	<button>Add</button>
+	</form>
 
 <ul id="subsList">
 </ul>
