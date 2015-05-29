@@ -14,6 +14,15 @@ class SessionsController < ApplicationController
 			render :new
 		end
 	end
+
+	def show
+		user_id = User.find(session['user_id'])
+		if user_id
+			render json: user_id
+		else
+			render status: 400, nothing: true
+		end
+	end
 	def destroy
 		reset_session
 		redirect_to "/session/new"
