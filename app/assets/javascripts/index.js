@@ -5,15 +5,43 @@ var id;
 var getId = function() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://localhost:3000/session')
+  
   xhr.addEventListener('load', function() {
+
+    
+    
     var user = JSON.parse(xhr.responseText);
+    
+    
     id = user.id;
+
     addAllSubs();
+  
   });
-  xhr.send()
+
+  xhr.send();
+  
 }
 
+
+
+
+
+  // var getTwitter = function() {
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open('GET', 'http://localhost:3000/twitter/');
+  //   xhr.addEventListener('load', function(){
+  //     var tweets = JSON.parse(xhr.responseText);
+  //     console.log(tweets);
+  //     debugger
+
+  //     //addStoryToDOM(tweet, ul)
+  //   });
+  //   xhr.send();
+  // }
+
 getId();
+
 
   var addAllSubs = function() {
     var xhr = new XMLHttpRequest();
@@ -23,9 +51,13 @@ getId();
       var response;
      
       var xhr2 = new XMLHttpRequest();
+
       xhr2.open('GET', 'http://localhost:3000/user_subscriptions/'+ id);
+
       xhr2.addEventListener('load', function() {
+        
         response = JSON.parse(xhr2.responseText);
+
         subs.forEach(function(sub) {
           addSub(sub, response);
         })
@@ -48,11 +80,39 @@ getId();
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
     xhr.addEventListener('load', function() {
+
       var storylist = JSON.parse(xhr.responseText);
-      for (var i=0; i<storylist.length; i++) {
-        storylist[i].response.docs.forEach(function(story) {
-            addStoryToDOM(story.source + ": " + story.headline.main, ul);
-        });
+
+      
+      // console.log(storylist[0].response.docs[0]);
+
+      
+      //the following loop is designed to obtain data from JSON objects returned from google's API                    
+      //needs if statement asking if the incoming is google-structured ... if not, 
+      //move to the other for loop, which is designed for NYT.
+      for (var i = 0; i < storylist.length; i++){
+        
+        if(typeof storylist[i] === 'string'){
+
+          for(var k = 0; k < JSON.parse(storylist[i]).responseData.results.length; k++){
+              
+            // console.log(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
+
+            addStoryToDOM(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl, ul)
+          }
+          
+        }else if(typeof storylist[i] === 'object'){
+
+          // JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
+
+          // for (var k = 0; k < storylist[i].response.docs.length; k++) {
+
+            storylist[i].response.docs.forEach(function(story) {
+
+                addStoryToDOM(story.web_url, ul);
+            });
+          // }
+        }
       }
     });
     xhr.send();
@@ -120,8 +180,6 @@ getId();
         xhr.send(JSON.stringify(newUserSub));
       } else {
         var xhr = new XMLHttpRequest();
-  console.log("URL:")
-  console.log('http://localhost:3000/user_subscriptions/' + sub.id)
         xhr.open('DELETE', 'http://localhost:3000/user_subscriptions/' + sub.id);
         xhr.addEventListener('load', function() {
           if(JSON.parse(xhr.status !== 200)) {
