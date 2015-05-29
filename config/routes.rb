@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   root "sessions#new"
 
   resources :subscriptions
-  resources :users, only:[:create]
+  resources :users, only:[:create, :index]
   resources :user_subscriptions
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy, :show]
   resource :secret, only: [:show]
   get 'user_subscriptions/stories/:id' => 'user_subscriptions#stories'
 

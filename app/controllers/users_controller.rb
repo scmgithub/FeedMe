@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 			format.json { render json: @users}
 		end
 	end
+	
 	def create
 		user = User.create(name: params[:name], password: params[:password])
 		session[:user_id] = user.id

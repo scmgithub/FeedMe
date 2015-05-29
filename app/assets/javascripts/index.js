@@ -1,7 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+var id;
 
-id = 2; // eventually this id will be defined by the login authentication
+var getId = function() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://localhost:3000/session')
+  xhr.addEventListener('load', function() {
+    var user = JSON.parse(xhr.responseText);
+    id = user.id;
+    addAllSubs();
+  });
+  xhr.send()
+}
+
+
+
 
   // var getTwitter = function() {
   //   var xhr = new XMLHttpRequest();
@@ -15,6 +28,9 @@ id = 2; // eventually this id will be defined by the login authentication
   //   });
   //   xhr.send();
   // }
+
+getId();
+
 
   var addAllSubs = function() {
     var xhr = new XMLHttpRequest();
@@ -30,6 +46,7 @@ id = 2; // eventually this id will be defined by the login authentication
         subs.forEach(function(sub) {
           addSub(sub, response);
         })
+        refreshNews();
       });
       xhr2.send();
     });
@@ -50,6 +67,7 @@ id = 2; // eventually this id will be defined by the login authentication
     xhr.addEventListener('load', function() {
 
       var storylist = JSON.parse(xhr.responseText);
+
       
       // console.log(storylist[0].response.docs[0]);
 
@@ -92,8 +110,7 @@ id = 2; // eventually this id will be defined by the login authentication
     li.appendChild(storyTextNode);
   }
 
-  addAllSubs();
-  refreshNews();
+
 
   var deleteSub = function() {
     var li = this.parentNode;
@@ -103,6 +120,7 @@ id = 2; // eventually this id will be defined by the login authentication
     xhr.addEventListener('load', function() {
       if(JSON.parse(xhr.status === 200)) {
         li.remove();
+        refreshNews();
       }
     });
 
@@ -143,7 +161,7 @@ id = 2; // eventually this id will be defined by the login authentication
             refreshNews();            
           }
         });
-        var newUserSub = { user_id: 2, subscription_id: sub.id }
+        var newUserSub = { user_id: id, subscription_id: sub.id }
         xhr.send(JSON.stringify(newUserSub));
       } else {
         var xhr = new XMLHttpRequest();
