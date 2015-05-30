@@ -8,12 +8,19 @@ div {
     width: 400px;
     padding: 30px;
     border: 2px solid black;
-    /*margin: 30px 20px 30px 20px;*/
+    margin-top: 100px;
     text-align: center;
     font-size: 20px;
     margin: 0 auto;
 }
-.centered
+
+button {
+	border: 5px;
+	border-color: tan; 
+	background-color: #500000;
+	color: tan;
+	font-size: 13px;
+}
 
 </style>
 </head>
@@ -41,7 +48,7 @@ div {
 <input name="password" type="password">
 <input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
 </br>
-<button>Sign In</button>
+<button>Sign In </button>
 </form>
 <br/><br/>
 
