@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
 
 var id;
 
@@ -26,6 +27,19 @@ var getId = function() {
 
 
 
+=======
+  var id;
+  var getId = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:3000/session')
+    xhr.addEventListener('load', function() {
+      var user = JSON.parse(xhr.responseText);
+      id = user.id;
+      addAllSubs();
+    });
+    xhr.send();
+  }
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
 
   // var getTwitter = function() {
   //   var xhr = new XMLHttpRequest();
@@ -40,8 +54,12 @@ var getId = function() {
   //   xhr.send();
   // }
 
+<<<<<<< HEAD
 getId();
 
+=======
+  getId();
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
 
   var addAllSubs = function() {
     var xhr = new XMLHttpRequest();
@@ -49,6 +67,7 @@ getId();
     xhr.addEventListener('load', function() {
       var subs = JSON.parse(xhr.responseText);
       var response;
+<<<<<<< HEAD
      
       var xhr2 = new XMLHttpRequest();
 
@@ -58,6 +77,12 @@ getId();
         
         response = JSON.parse(xhr2.responseText);
 
+=======
+      var xhr2 = new XMLHttpRequest();
+      xhr2.open('GET', 'http://localhost:3000/user_subscriptions/' + id);
+      xhr2.addEventListener('load', function() {
+        response = JSON.parse(xhr2.responseText);
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
         subs.forEach(function(sub) {
           addSub(sub, response);
         })
@@ -76,6 +101,7 @@ getId();
 
   var refreshNews = function() {
     var ul = document.getElementById('newsFeed');
+<<<<<<< HEAD
     ul.innerHTML="";
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
@@ -111,6 +137,28 @@ getId();
 
                 addStoryToDOM(story.web_url, ul);
             });
+=======
+    ul.innerHTML = "";
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
+    xhr.addEventListener('load', function() {
+      var storylist = JSON.parse(xhr.responseText);
+      //the following loop is designed to obtain data from JSON objects returned from google's API                    
+      //needs if statement asking if the incoming is google-structured ... if not, 
+      //move to the other for loop, which is designed for NYT.
+      for (var i = 0; i < storylist.length; i++) {
+        if (typeof storylist[i] === 'string') {
+          for (var k = 0; k < JSON.parse(storylist[i]).responseData.results.length; k++) {
+            // console.log(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
+            addStoryToDOM(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl, ul)
+          }
+        } else if (typeof storylist[i] === 'object') {
+          // JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
+          // for (var k = 0; k < storylist[i].response.docs.length; k++) {
+          storylist[i].response.docs.forEach(function(story) {
+            addStoryToDOM(story.web_url, ul);
+          });
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
           // }
         }
       }
@@ -125,20 +173,30 @@ getId();
     li.appendChild(storyTextNode);
   }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
   var deleteSub = function() {
     var li = this.parentNode;
     var id = li.id.substring(3);
     var xhr = new XMLHttpRequest();
     xhr.open('DELETE', 'http://localhost:3000/subscriptions/' + id);
     xhr.addEventListener('load', function() {
+<<<<<<< HEAD
       if(JSON.parse(xhr.status === 200)) {
+=======
+      if (JSON.parse(xhr.status === 200)) {
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
         li.remove();
         refreshNews();
       }
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
     xhr.send();
   };
 
@@ -156,47 +214,86 @@ getId();
     var subCheck = document.createElement('input');
     subCheck.type = "checkbox";
     subCheck.checked = false;
+<<<<<<< HEAD
     for (var i=0; i<sublist.length; i++) {
       if (sublist[i].subscription_id === sub.id) {
         subCheck.checked= true;
+=======
+    for (var i = 0; i < sublist.length; i++) {
+      if (sublist[i].subscription_id === sub.id) {
+        subCheck.checked = true;
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
       }
     }
 
     subCheck.addEventListener('change', function() {
       if (subCheck.checked) {
+<<<<<<< HEAD
         var xhr= new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:3000/user_subscriptions');
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhr.addEventListener('load', function() {
           if(JSON.parse(xhr.status !== 200)) {
+=======
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:3000/user_subscriptions');
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.addEventListener('load', function() {
+          if (JSON.parse(xhr.status !== 200)) {
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
             console.log("Unable to add user_subscription!");
             console.log("sub.id:")
             console.log(sub.id)
           } else {
+<<<<<<< HEAD
             refreshNews();            
           }
         });
         var newUserSub = { user_id: id, subscription_id: sub.id }
+=======
+            refreshNews();
+          }
+        });
+        var newUserSub = {
+          user_id: id,
+          subscription_id: sub.id
+        }
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
         xhr.send(JSON.stringify(newUserSub));
       } else {
         var xhr = new XMLHttpRequest();
         xhr.open('DELETE', 'http://localhost:3000/user_subscriptions/' + sub.id);
         xhr.addEventListener('load', function() {
+<<<<<<< HEAD
           if(JSON.parse(xhr.status !== 200)) {
             console.log("Unable to remove user_subscription!");
           } else {
             refreshNews();            
+=======
+          if (JSON.parse(xhr.status !== 200)) {
+            console.log("Unable to remove user_subscription!");
+          } else {
+            refreshNews();
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
           }
         });
         xhr.send();
       }
     });
+<<<<<<< HEAD
     
     var subText = sub.name + ": "+ sub.keyword;
     var subTextNode = document.createTextNode(subText);
     li.appendChild(subCheck);
     li.appendChild(subTextNode);
     
+=======
+
+    var subText = sub.name + ": " + sub.keyword;
+    var subTextNode = document.createTextNode(subText);
+    li.appendChild(subCheck);
+    li.appendChild(subTextNode);
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
 
     // var edit = document.createElement('button');
     // edit.innerHTML = "Edit";
@@ -211,9 +308,12 @@ getId();
     li.appendChild(deleteButton);
   }
 
+<<<<<<< HEAD
   
 
 
+=======
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
   // var editSub = function(li, name, type) {
   //   li.innerHTML = '';
   //   var id = li.id.substring(3);
@@ -267,7 +367,15 @@ getId();
       newName.value = '';
     });
 
+<<<<<<< HEAD
     var newSub = { sub: {name: newName.value} };
+=======
+    var newSub = {
+      sub: {
+        name: newName.value
+      }
+    };
+>>>>>>> 698946f9a5dfc897e17f118b25bef5ac511f3323
     xhr.send(JSON.stringify(newSub));
   });
 });
