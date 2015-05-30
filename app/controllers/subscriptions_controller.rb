@@ -18,13 +18,30 @@ class SubscriptionsController < ApplicationController
 		end
 	end
 
-	def create 
-		@subscription = Subscription.create(subscription_params)
-		if @subscription.save
-			render json: @subscription
-		else
-			render status: 400, nothing: true
+	def create
+		if params[:name] === "NYTimes"
+			@subscription = Subscription.create(name: params[:name], keyword: params[:keyword], url: "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=#{params[:keyword]}&fl=web_url,snippet,source,headline,pub_date&api-key=aa1260c72c4d669a7ecd0d1aa8725430:6:8505067")
+			if @subscription.save
+				"render json: (@subscription) and return"
+			else
+				render status: 400, nothing: true
+			end
+		elsif params[:name] === "google"
+			@subscription = Subscription.create(name: params[:name], keyword: params[:keyword], url: "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=#{params[:keyword]}")
+			if @subscription.save
+				"render json: (@subscription) and return"
+			else
+				render status: 400, nothing: true
+			end
+		elsif params[:name] === "twitter"
+			@subscription = Subscription.create(name: params[:name], keyword: params[:keyword], url: params[:keyword])
+			if @subscription.save
+				"render json: (@subscription) and return"
+			else
+				render status: 400, nothing: true
+			end
 		end
+		 redirect_to '/subscriptions'
 	end
 
 	def update 
