@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 	end
 
 	def show
-		user_id = User.find(session['user_id'])
+		user_id = User.find(session['user_id']) if (session['user_id'])
 		if user_id
 			render json: user_id
 		else
