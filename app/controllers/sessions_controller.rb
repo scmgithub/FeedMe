@@ -2,6 +2,9 @@ class SessionsController < ApplicationController
 	protect_from_forgery with: :null_session
 
 	def new
+		@user = User.new
+		@errors = params[:errors] if params[:errors]
+		
 		render :new
 	end
 
@@ -11,7 +14,8 @@ class SessionsController < ApplicationController
 			session[:user_id] = @user.id
 			redirect_to "/subscriptions"
 		else
-			@error = true
+			@sign_in_errors = 'User does not exist with that username and password'
+			@user = User.new
 			render :new
 		end
 	end
