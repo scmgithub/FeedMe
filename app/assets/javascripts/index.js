@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var id;
   var getId = function() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/session')
+    xhr.open('GET', location.origin + '/session')
     xhr.addEventListener('load', function() {
       var user = JSON.parse(xhr.responseText);
       id = user.id;
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // var getTwitter = function() {
   //   var xhr = new XMLHttpRequest();
-  //   xhr.open('GET', 'http://localhost:3000/twitter/');
+  //   xhr.open('GET', location.origin + '/twitter/');
   //   xhr.addEventListener('load', function(){
   //     var tweets = JSON.parse(xhr.responseText);
   //     console.log(tweets);
@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var addAllSubs = function() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/subscriptions.json');
+    xhr.open('GET', location.origin + '/subscriptions.json');
     xhr.addEventListener('load', function() {
       var subs = JSON.parse(xhr.responseText);
       var response;
 
       var xhr2 = new XMLHttpRequest();
-      xhr2.open('GET', 'http://localhost:3000/user_subscriptions/' + id);
+      xhr2.open('GET', location.origin + '/user_subscriptions/' + id);
       xhr2.addEventListener('load', function() {
         response = JSON.parse(xhr2.responseText);
         subs.forEach(function(sub) {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var ul = document.getElementById('newsFeed');
     ul.innerHTML = "";
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/user_subscriptions/stories/' + id);
+    xhr.open('GET', location.origin + '/user_subscriptions/stories/' + id);
     xhr.addEventListener('load', function() {
       var storylist = JSON.parse(xhr.responseText);
       //the following loop is designed to obtain data from JSON objects returned from google's API                    
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var li = this.parentNode;
     var id = li.id.substring(3);
     var xhr = new XMLHttpRequest();
-    xhr.open('DELETE', 'http://localhost:3000/subscriptions/' + id);
+    xhr.open('DELETE', location.origin + '/subscriptions/' + id);
     xhr.addEventListener('load', function() {
       if (JSON.parse(xhr.status === 200)) {
         li.remove();
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
     subCheck.addEventListener('change', function() {
       if (subCheck.checked) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:3000/user_subscriptions');
+        xhr.open('POST', location.origin + '/user_subscriptions');
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhr.addEventListener('load', function() {
           if (JSON.parse(xhr.status !== 200)) {
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send(JSON.stringify(newUserSub));
       } else {
         var xhr = new XMLHttpRequest();
-        xhr.open('DELETE', 'http://localhost:3000/user_subscriptions/' + sub.id);
+        xhr.open('DELETE', location.origin + '/user_subscriptions/' + sub.id);
         xhr.addEventListener('load', function() {
           if (JSON.parse(xhr.status !== 200)) {
             console.log("Unable to remove user_subscription!");
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // var updateSub = function(li, newName) {
   //   var id = li.id.substring(3);
   //   var xhr = new XMLHttpRequest();
-  //   xhr.open('PUT', 'http://localhost:3000/pets/' + id);
+  //   xhr.open('PUT', location.origin + '/pets/' + id);
   //   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   //   xhr.addEventListener('load', function() {
   //     var returnedPet = JSON.parse(xhr.responseText);
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var newName = document.getElementById('newSubName');
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/subscriptions');
+    xhr.open('POST', location.origin + '/subscriptions');
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function() {
       var returnedSub = JSON.parse(xhr.responseText);
