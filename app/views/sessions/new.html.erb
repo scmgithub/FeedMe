@@ -1,3 +1,9 @@
+<!-- error for sign-in added -->
+<% if @sign_in_errors %>
+	<span class = "error"><%= @sign_in_errors %></span>
+<% end %>
+<br/><br/>
+<!-- ends here -->
 <form action="/session" method="POST">
 <label for = "user_name">
 	Username:
@@ -11,6 +17,16 @@
 <input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
 <button>Sign In</button>
 </form>
+<br/><br/>
+
+
+<!-- error for sign-up added -->
+<% if @sign_up_errors %>
+	<span class = "error"><%= @sign_up_errors %></span>
+<% end %>
+<!-- ends here -->
+
+<br/><br/>
 
 <form action="/users" method="POST">
 	<label for = "name">Username:</label>

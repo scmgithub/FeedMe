@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     xhr.send();
   }
-//steve edit
+
   // var getTwitter = function() {
   //   var xhr = new XMLHttpRequest();
   //   xhr.open('GET', 'http://localhost:3000/twitter/');
@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
   //     var tweets = JSON.parse(xhr.responseText);
   //     console.log(tweets);
   //     debugger
-
   //     //addStoryToDOM(tweet, ul)
   //   });
   //   xhr.send();
@@ -32,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.addEventListener('load', function() {
       var subs = JSON.parse(xhr.responseText);
       var response;
+
       var xhr2 = new XMLHttpRequest();
       xhr2.open('GET', 'http://localhost:3000/user_subscriptions/' + id);
       xhr2.addEventListener('load', function() {
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var deleteButton = document.createElement('button');
     deleteButton.innerHTML = "Delete";
-    deleteButton.addEventListener('click', deleteSub); //go to line 16
+    deleteButton.addEventListener('click', deleteSub);
     li.appendChild(deleteButton);
   }
 
@@ -231,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
         name: newName.value
       }
     };
+
     xhr.send(JSON.stringify(newSub));
   });
 });
