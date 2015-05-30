@@ -29,7 +29,9 @@ class UserSubscriptionsController < ApplicationController
 		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
 		if @user_subscriptions
 			@user_subscriptions.each do |sub|
+				if sub.subscription.name != "twitter"
 				@content.push(HTTParty.get(sub.subscription.url))
+				end
 			end
 			render json: @content
 		else
@@ -41,18 +43,20 @@ class UserSubscriptionsController < ApplicationController
 		@tweets = []
 
 		client = Twitter::REST::Client.new do |config| #Peter's twitter developer credentials
-		  config.consumer_key        = 
-		  config.consumer_secret     = 
-		  config.access_token        = 
-		  config.access_token_secret = 
+		  config.consumer_key        = Rails.application.secrets.consumer_key
+		  config.consumer_secret     = Rails.application.secrets.consumer_secret
+		  config.access_token        = Rails.application.secrets.access_token
+		  config.access_token_secret = Rails.application.secrets.access_token_secret
 		end
 
 		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
 
 		if @user_subscriptions
 			@user_subscriptions.each do |sub|
-				client.search(sub.subscription.url).take(10).map(&:attrs).each do |tweet|
-				@tweets.push(tweet)
+				if sub.subscription.name == 'twitter'
+					client.search(sub.subscription.url).take(10).map(&:attrs).each do |tweet|
+					@tweets.push(tweet)
+					end
 				end
 
 			end
