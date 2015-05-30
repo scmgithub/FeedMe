@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     xhr.send();
   }
-
+//steve edit
   // var getTwitter = function() {
   //   var xhr = new XMLHttpRequest();
   //   xhr.open('GET', 'http://localhost:3000/twitter/');
