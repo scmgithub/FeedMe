@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy, :show]
   resource :secret, only: [:show]
   get 'user_subscriptions/stories/:id' => 'user_subscriptions#stories'
+  get 'user_subscriptions/twitter/:id' => 'user_subscriptions#twitter'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

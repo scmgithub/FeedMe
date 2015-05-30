@@ -37,26 +37,30 @@ class UserSubscriptionsController < ApplicationController
 		end
 	end
 
-	# def twitter
-		
+	def twitter
+		@tweets = []
 
+		client = Twitter::REST::Client.new do |config| #Peter's twitter developer credentials
+		  config.consumer_key        = 
+		  config.consumer_secret     = 
+		  config.access_token        = 
+		  config.access_token_secret = 
+		end
 
-		# client = Twitter::REST::Client.new do |config| #Peter's twitter developer credentials
+		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
 
-# api keys go here
+		if @user_subscriptions
+			@user_subscriptions.each do |sub|
+				client.search(sub.subscription.url).take(10).map(&:attrs).each do |tweet|
+				@tweets.push(tweet)
+				end
 
-		# end
-
-		# client.user_timeline('').each do |tweet| #string will be a param of the search term
-	 #    if tweet.user.screen_name == 'peterpine83'
-	 #        puts "nothing"
-	 #        break
-	 #    else
-	 #         @content = "#{tweet.user.screen_name}: #{tweet.text}"
-	 #         render json: @content
-  #   end
-
-	# end
+			end
+			render json: @tweets
+		else
+			render status: 400, nothing: true
+		end
+	end
 
 	def create
 		@user_subscription = UserSubscription.create(user_subscription_params)
