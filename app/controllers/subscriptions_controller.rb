@@ -1,6 +1,5 @@
 class SubscriptionsController < ApplicationController 
 	protect_from_forgery with: :null_session
-	
 
 	def index
 		@subscriptions = Subscription.all
@@ -45,7 +44,6 @@ class SubscriptionsController < ApplicationController
 		 redirect_to '/subscriptions'
 	end
 
-
 	def update 
 		@subscription = Subscription.find_by(id: params[:id])
 		if @subscription.update(subscription_params)
@@ -64,10 +62,10 @@ class SubscriptionsController < ApplicationController
 		end
 	end
 
-	# private 
-	# def subscription_params
-	# 	params.require(:subscription).permit(:name, :keyword)
-	# end
+	private 
+	def subscription_params
+		params.require(:subscription).permit(:name, :keyword, :url)
+	end
 end
 
 

@@ -20,6 +20,5 @@ class UsersController < ApplicationController
 			@sign_up_errors = "This username is already taken"
 			render "sessions/new"
 		end
-
 	end
 end
