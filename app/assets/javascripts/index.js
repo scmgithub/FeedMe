@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.open('GET', 'http://localhost:3000/user_subscriptions/twitter/' + id);
     xhr.addEventListener('load', function(){
       var tweets = JSON.parse(xhr.responseText);
-      
       for(i=0; i < tweets.length; i++){
       var tweetText = tweets[i].user.screen_name + ": " + tweets[i].text;
       addStoryToDOM(tweetText, ul);

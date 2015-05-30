@@ -10,8 +10,8 @@ User.create(name: 'bruce', password: 'password')
 User.create(name: 'alfred', password: 'password')
 
 
-# Subscription.create(name: "twitter", keyword: "taylor swift", url: "www.t-swizz.org/")
-# Subscription.create(name: "twitter", keyword: "batman", url: "www.batman.org/")
+Subscription.create(name: "twitter", keyword: "cnn", url: "cnn")
+Subscription.create(name: "twitter", keyword: "nytimes", url: "nytimes")
 # Subscription.create(name: "twitter", keyword: "joker", url: "www.joker.org/")
 # Subscription.create(name: "twitter", keyword: "celine dion", url: "www.canadarox.org/")
 # Subscription.create(name: "twitter", keyword: "winston churchill", url: "www.winston.org/")
