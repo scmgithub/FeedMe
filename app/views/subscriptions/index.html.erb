@@ -1,7 +1,69 @@
-<header>
-  <h1>FeedMe</h1>
-</header>
-<form method="POST" action="/session">
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" id="refreshStoriesButton" href="/subscription">Feed Me</a>
+            <button id="refreshStoriesButton">Refresh Articles</button>
+            
+		<form class="pure-form-stacked">
+			<form class="pure-from-stacked" method="POST" action="/subscriptions">
+				<lable for = "name">Twitter</lable>
+				<input name = "keyword">
+				<input name = "name" value = "twitter" type="hidden">
+				<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+				<button>Add</button>
+			</form>
+			<form class="pure-from-stacked" method="POST" action="/subscriptions">
+				<lable for = "name">New York Times</lable>
+				<input name = "keyword" type = "text">
+				<input name = "name" value = "NYTimes" type = "hidden">
+				<input name = "authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+				<button>Add</button>
+			</form>
+
+			<form class="pure-from-stacked" method="POST" action="/subscriptions">
+				<lable for = "name">Google News</lable>
+				<input name = "keyword" type = "text">
+				<input name = "name" value = "google" type = "hidden">
+				<input name = "authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+				<button>Add</button>
+			</form>
+		</form>
+
+            <ul id="subsList" class="pure-menu-list">
+            </ul>
+
+            <form  method="POST" action="/session">
+				<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+				<input name="_method" value="DELETE" type="hidden">
+				<button class="button-xsmall pure-button button-error">Logout</button>
+			</form>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>FeedMe</h1>
+            <h2>An awsome news feed</h2>
+        </div>
+        
+        <div class="content">
+ 		<ul id="newsFeed">
+		</ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- <form method="POST" action="/session">
 	<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
 	<input name="_method" value="DELETE" type="hidden">
 	<button>Logout</button>
@@ -30,16 +92,14 @@
 	
 	<input name = "authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
 	<button>Add</button>
-</form>
-<ul id="subsList">
-</ul>
+</form> -->
 
-<button id="refreshStoriesButton">Refresh Articles</button>
+
+
 <!--
 <h3>Add a subscription here (maybe):</h3>
 <input type="text" id="newSubName" placeholder="subscription name">
 <button id = "addNewSub">Add</button>
 -->
 
-<ul id="newsFeed">
-</ul>
+

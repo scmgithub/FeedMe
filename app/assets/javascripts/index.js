@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
                link[l] = "<a href='" + link[l] + "'>" + link[l] + "</a>";
                text = link.join(' ');
             }
+            else {
+              text = link.join(' ');
+            }
           }
       var tweetText = "<p><b>" + tweets[i].user.screen_name + ":</b> " + text + "</p";
       addStoryToDOM(tweetText, ul);
@@ -103,10 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var setLiToStory = function(li, story) {
     li.innerHTML = "";
-    var storyText = story;
-    li.innerHTML = storyText;
-    //var storyTextNode = document.createTextNode(storyText);
-    //li.appendChild(storyTextNode);
+    li.innerHTML = story;
   }
 
   var deleteSub = function() {
@@ -192,6 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // li.appendChild(edit);
 
     var deleteButton = document.createElement('button');
+    
     deleteButton.innerHTML = "Delete";
     deleteButton.addEventListener('click', deleteSub);
     li.appendChild(deleteButton);
