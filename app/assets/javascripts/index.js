@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var user = JSON.parse(xhr.responseText);
       id = user.id;
       addAllSubs();
+
     });
     xhr.send();
   }
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
   getId();
 
   var addAllSubs = function() {
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', location.origin + '/subscriptions.json');
     xhr.addEventListener('load', function() {
@@ -42,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         subs.forEach(function(sub) {
           addSub(sub, response);
         })
+        getTwitter();
         refreshNews();
       });
       xhr2.send();
@@ -61,26 +64,31 @@ document.addEventListener('DOMContentLoaded', function() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', location.origin + '/user_subscriptions/stories/' + id);
     xhr.addEventListener('load', function() {
+
       var storylist = JSON.parse(xhr.responseText);
       //the following loop is designed to obtain data from JSON objects returned from google's API                    
       //needs if statement asking if the incoming is google-structured ... if not, 
       //move to the other for loop, which is designed for NYT.
+      //Google Feed
       for (var i = 0; i < storylist.length; i++) {
         if (typeof storylist[i] === 'string') {
           for (var k = 0; k < JSON.parse(storylist[i]).responseData.results.length; k++) {
-            // console.log(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
-            addStoryToDOM(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl, ul)
+            var googText = JSON.parse(storylist[i]).responseData.results[k].title + ":\n" + JSON.parse(storylist[i]).responseData.results[k].content + "\n" + JSON.parse(storylist[i]).responseData.results[k].unescapedUrl;
+            addStoryToDOM(googText, ul)
           }
+      //NYT Feed
         } else if (typeof storylist[i] === 'object') {
           // JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
           // for (var k = 0; k < storylist[i].response.docs.length; k++) {
           storylist[i].response.docs.forEach(function(story) {
-            addStoryToDOM(story.web_url, ul);
+            //console.log(story)
+            var nytText = "<h5>" + story.headline.main + "</h5><br> " + story.snippet + '\n ' + story.web_url;
+            addStoryToDOM(nytText, ul);
           });
           // }
         }
       }
-      getTwitter();
+      
     });
     xhr.send();
   }
@@ -88,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var setLiToStory = function(li, story) {
     li.innerHTML = "";
     var storyText = story
+    var p = document.createElement("p")
     var storyTextNode = document.createTextNode(storyText);
     li.appendChild(storyTextNode);
   }
@@ -100,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.addEventListener('load', function() {
       if (JSON.parse(xhr.status === 200)) {
         li.remove();
+        getTwitter();
         refreshNews();
       }
     });
@@ -137,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("sub.id:")
             console.log(sub.id)
           } else {
+            getTwitter();
             refreshNews();
           }
         });
@@ -152,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (JSON.parse(xhr.status !== 200)) {
             console.log("Unable to remove user_subscription!");
           } else {
+            getTwitter();
             refreshNews();
           }
         });
