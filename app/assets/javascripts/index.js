@@ -68,9 +68,11 @@ document.addEventListener('DOMContentLoaded', function() {
             var link = thisStory.text.split(" ");
             for(l=0; l<link.length; l++) {
               if (link[l].search('http://t.co') != -1) {
-                link[l] = "<a href='" + link[l] + "'>" + link[l] + "</a>";
+                link[l] = "<a href='" + link[l] + "'target='_blank'>" + link[l] + "</a>";
+                storytext = link.join(' ');
+              }else {
+                storytext = link.join(' ');
               }
-              storytext = link.join(' ');
             }
             var tweetText = "<p><b>" + thisStory.user.screen_name + ":</b> " + storytext + "</p";
             addStoryToDOM(tweetText, ul, storylist[i].subid);
@@ -79,14 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (storylist[i].subname === 'google') {
           var thisStory = JSON.parse(storylist[i].data).responseData;
           for (var k = 0; k < thisStory.results.length; k++) {
-            storytext = "<p><b>" + thisStory.results[k].title + "</b><br> " + thisStory.results[k].content + "<a href='" + thisStory.results[k].unescapedUrl + "'>...more</a></p>";
+            storytext = "<p><b>" + thisStory.results[k].title + "</b><br> " + thisStory.results[k].content + "<a href='" + thisStory.results[k].unescapedUrl + "'target='_blank'>...more</a></p>";
             addStoryToDOM(storytext, ul, storylist[i].subid);
           }
 
         // NYTimes feed
         } else if (storylist[i].subname === 'NYTimes') {
           storylist[i].data.response.docs.forEach(function(story) {
-            storytext = "<p><b>" + story.headline.main + "</b><br> " + story.snippet + "<a href='" + story.web_url + "'>...more</a></p>";
+            storytext = "<p><b>" + story.headline.main + "</b><br> " + story.snippet + "<a href='" + story.web_url + "'target='_blank'>...more</a></p>";
               addStoryToDOM(storytext, ul, storylist[i].subid);
           });
 
