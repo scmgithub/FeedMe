@@ -70,6 +70,8 @@ document.addEventListener('DOMContentLoaded', function() {
               if (link[l].search('http://t.co') != -1) {
                 link[l] = "<a href='" + link[l] + "'>" + link[l] + "</a>";
                 storytext = link.join(' ');
+              }else {
+                storytext = link.join(' ');
               }
             }
             var tweetText = "<p><b>" + thisStory.user.screen_name + ":</b> " + storytext + "</p";
