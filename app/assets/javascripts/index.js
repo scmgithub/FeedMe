@@ -229,25 +229,31 @@ document.addEventListener('DOMContentLoaded', function() {
   //   xhr.send(JSON.stringify(updatedPet));
   // }
 
-  var addNewSubButton = document.getElementById('addNewSub');
-  addNewSubButton.addEventListener('click', function() {
-    var newName = document.getElementById('newSubName');
+  // var addNewSubButton = document.getElementById('addNewSub');
+  // addNewSubButton.addEventListener('click', function() {
+  //   var newName = document.getElementById('newSubName');
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', location.origin + '/subscriptions');
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.addEventListener('load', function() {
-      var returnedSub = JSON.parse(xhr.responseText);
-      addSub(returnedSub);
-      newName.value = '';
-    });
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open('POST', location.origin + '/subscriptions');
+  //   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  //   xhr.addEventListener('load', function() {
+  //     var returnedSub = JSON.parse(xhr.responseText);
+  //     addSub(returnedSub);
+  //     newName.value = '';
+  //   });
 
-    var newSub = {
-      sub: {
-        name: newName.value
-      }
-    };
+  //   var newSub = {
+  //     sub: {
+  //       name: newName.value
+  //     }
+  //   };
 
-    xhr.send(JSON.stringify(newSub));
+  //   xhr.send(JSON.stringify(newSub));
+  // });
+  var refreshArticlesButton = document.getElementById('refreshStoriesButton');
+  refreshStoriesButton.addEventListener('click', function() {
+    getTwitter();
+    refreshNews();
   });
+
 });
