@@ -19,8 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.open('GET', location.origin + '/user_subscriptions/twitter/' + id);
     xhr.addEventListener('load', function(){
       var tweets = JSON.parse(xhr.responseText);
+      console.log(tweets[0]);
       for(i=0; i < tweets.length; i++){
-      var tweetText = tweets[i].user.screen_name + ": " + tweets[i].text;
+      var tweetText = "<p><b>" + tweets[i].user.screen_name + ":</b> " + tweets[i].text + "</p";
       addStoryToDOM(tweetText, ul);
       }
     });
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
       for (var i = 0; i < storylist.length; i++) {
         if (typeof storylist[i] === 'string') {
           for (var k = 0; k < JSON.parse(storylist[i]).responseData.results.length; k++) {
-            var googText = JSON.parse(storylist[i]).responseData.results[k].title + ":\n" + JSON.parse(storylist[i]).responseData.results[k].content + "\n" + JSON.parse(storylist[i]).responseData.results[k].unescapedUrl;
+            var googText = "<p><b>" + JSON.parse(storylist[i]).responseData.results[k].title + "</b><br> " + JSON.parse(storylist[i]).responseData.results[k].content + "<a href='" + JSON.parse(storylist[i]).responseData.results[k].unescapedUrl + "'>...more</a></p>";
             addStoryToDOM(googText, ul)
           }
       //NYT Feed
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // for (var k = 0; k < storylist[i].response.docs.length; k++) {
           storylist[i].response.docs.forEach(function(story) {
             //console.log(story)
-            var nytText = "<h5>" + story.headline.main + "</h5><br> " + story.snippet + '\n ' + story.web_url;
+            var nytText = "<p><b>" + story.headline.main + "</b><br> " + story.snippet + "<a href='" + story.web_url + "'>...more</a></p>";
             addStoryToDOM(nytText, ul);
           });
           // }
@@ -95,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var setLiToStory = function(li, story) {
     li.innerHTML = "";
-    var storyText = story
-    li.insertAdjecentHTML('beforeend', storyText)
+    var storyText = story;
+    li.innerHTML = storyText;
     //var storyTextNode = document.createTextNode(storyText);
     //li.appendChild(storyTextNode);
   }
