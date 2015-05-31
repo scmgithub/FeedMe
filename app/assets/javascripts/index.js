@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var user = JSON.parse(xhr.responseText);
       id = user.id;
       addAllSubs();
+
     });
     xhr.send();
   }
@@ -15,11 +16,19 @@ document.addEventListener('DOMContentLoaded', function() {
   var getTwitter = function() {
     var ul = document.getElementById('newsFeed');
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/user_subscriptions/twitter/' + id);
+    xhr.open('GET', location.origin + '/user_subscriptions/twitter/' + id);
     xhr.addEventListener('load', function(){
       var tweets = JSON.parse(xhr.responseText);
+      var text;
       for(i=0; i < tweets.length; i++){
-      var tweetText = tweets[i].user.screen_name + ": " + tweets[i].text;
+        var link = tweets[i].text.split(" ")
+          for(l=0; l<link.length; l++){
+            if (link[l].search('http://t.co') != -1){
+               link[l] = "<a href='" + link[l] + "'>" + link[l] + "</a>";
+               text = link.join(' ');
+            }
+          }
+      var tweetText = "<p><b>" + tweets[i].user.screen_name + ":</b> " + text + "</p";
       addStoryToDOM(tweetText, ul);
       }
     });
@@ -29,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   getId();
 
   var addAllSubs = function() {
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', location.origin + '/subscriptions.json');
     xhr.addEventListener('load', function() {
@@ -42,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         subs.forEach(function(sub) {
           addSub(sub, response);
         })
+        getTwitter();
         refreshNews();
       });
       xhr2.send();
@@ -61,35 +72,41 @@ document.addEventListener('DOMContentLoaded', function() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', location.origin + '/user_subscriptions/stories/' + id);
     xhr.addEventListener('load', function() {
+
       var storylist = JSON.parse(xhr.responseText);
       //the following loop is designed to obtain data from JSON objects returned from google's API                    
       //needs if statement asking if the incoming is google-structured ... if not, 
       //move to the other for loop, which is designed for NYT.
+      //Google Feed
       for (var i = 0; i < storylist.length; i++) {
         if (typeof storylist[i] === 'string') {
           for (var k = 0; k < JSON.parse(storylist[i]).responseData.results.length; k++) {
-            // console.log(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
-            addStoryToDOM(JSON.parse(storylist[i]).responseData.results[k].unescapedUrl, ul)
+            var googText = "<p><b>" + JSON.parse(storylist[i]).responseData.results[k].title + "</b><br> " + JSON.parse(storylist[i]).responseData.results[k].content + "<a href='" + JSON.parse(storylist[i]).responseData.results[k].unescapedUrl + "'>...more</a></p>";
+            addStoryToDOM(googText, ul)
           }
+      //NYT Feed
         } else if (typeof storylist[i] === 'object') {
           // JSON.parse(storylist[i]).responseData.results[k].unescapedUrl);
           // for (var k = 0; k < storylist[i].response.docs.length; k++) {
           storylist[i].response.docs.forEach(function(story) {
-            addStoryToDOM(story.web_url, ul);
+            //console.log(story)
+            var nytText = "<p><b>" + story.headline.main + "</b><br> " + story.snippet + "<a href='" + story.web_url + "'>...more</a></p>";
+            addStoryToDOM(nytText, ul);
           });
           // }
         }
       }
-      getTwitter();
+      
     });
     xhr.send();
   }
 
   var setLiToStory = function(li, story) {
     li.innerHTML = "";
-    var storyText = story
-    var storyTextNode = document.createTextNode(storyText);
-    li.appendChild(storyTextNode);
+    var storyText = story;
+    li.innerHTML = storyText;
+    //var storyTextNode = document.createTextNode(storyText);
+    //li.appendChild(storyTextNode);
   }
 
   var deleteSub = function() {
@@ -100,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.addEventListener('load', function() {
       if (JSON.parse(xhr.status === 200)) {
         li.remove();
+        getTwitter();
         refreshNews();
       }
     });
@@ -137,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("sub.id:")
             console.log(sub.id)
           } else {
+            getTwitter();
             refreshNews();
           }
         });
@@ -152,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (JSON.parse(xhr.status !== 200)) {
             console.log("Unable to remove user_subscription!");
           } else {
+            getTwitter();
             refreshNews();
           }
         });
@@ -217,25 +237,31 @@ document.addEventListener('DOMContentLoaded', function() {
   //   xhr.send(JSON.stringify(updatedPet));
   // }
 
-  var addNewSubButton = document.getElementById('addNewSub');
-  addNewSubButton.addEventListener('click', function() {
-    var newName = document.getElementById('newSubName');
+  // var addNewSubButton = document.getElementById('addNewSub');
+  // addNewSubButton.addEventListener('click', function() {
+  //   var newName = document.getElementById('newSubName');
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', location.origin + '/subscriptions');
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.addEventListener('load', function() {
-      var returnedSub = JSON.parse(xhr.responseText);
-      addSub(returnedSub);
-      newName.value = '';
-    });
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open('POST', location.origin + '/subscriptions');
+  //   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  //   xhr.addEventListener('load', function() {
+  //     var returnedSub = JSON.parse(xhr.responseText);
+  //     addSub(returnedSub);
+  //     newName.value = '';
+  //   });
 
-    var newSub = {
-      sub: {
-        name: newName.value
-      }
-    };
+  //   var newSub = {
+  //     sub: {
+  //       name: newName.value
+  //     }
+  //   };
 
-    xhr.send(JSON.stringify(newSub));
+  //   xhr.send(JSON.stringify(newSub));
+  // });
+  var refreshArticlesButton = document.getElementById('refreshStoriesButton');
+  refreshStoriesButton.addEventListener('click', function() {
+    getTwitter();
+    refreshNews();
   });
+
 });
