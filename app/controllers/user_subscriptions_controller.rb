@@ -26,21 +26,6 @@ class UserSubscriptionsController < ApplicationController
 
 	def stories
 		@content = []
-		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
-		if @user_subscriptions
-			@user_subscriptions.each do |sub|
-				if sub.subscription.name != "twitter"
-				@content.push(HTTParty.get(sub.subscription.url))
-				end
-			end
-			render json: @content
-		else
-			render status: 400, nothing: true
-		end
-	end
-
-	def twitter
-		@tweets = []
 
 		client = Twitter::REST::Client.new do |config| #Peter's twitter developer credentials
 		  config.consumer_key        = Rails.application.secrets.consumer_key
@@ -50,17 +35,25 @@ class UserSubscriptionsController < ApplicationController
 		end
 
 		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
-
 		if @user_subscriptions
 			@user_subscriptions.each do |sub|
 				if sub.subscription.name == 'twitter'
 					client.search(sub.subscription.url).take(10).map(&:attrs).each do |tweet|
-					@tweets.push(tweet)
+						@content.push( {
+							subname: sub.subscription.name,
+							subid: sub.subscription_id,
+							data: tweet
+						} )
 					end
+				else
+					@content.push( {
+						subname: sub.subscription.name,
+						subid: sub.subscription_id,
+						data: HTTParty.get(sub.subscription.url)
+					} )
 				end
-
 			end
-			render json: @tweets
+			render json: @content
 		else
 			render status: 400, nothing: true
 		end
