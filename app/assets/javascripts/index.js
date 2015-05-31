@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var refreshNews = function() {
     var ul = document.getElementById('newsFeed');
-    ul.innerHTML = "";
+     ul.innerHTML = "";
     var xhr = new XMLHttpRequest();
     xhr.open('GET', location.origin + '/user_subscriptions/stories/' + id);
     xhr.addEventListener('load', function() {

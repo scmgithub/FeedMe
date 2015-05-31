@@ -10,21 +10,24 @@ $tertiary-color: #20788C;
   padding: 20px;
 }
 
-#feed{
-  .pure-button-primary.pure-button{
+
+form {
+  .pure-button-primary.pure-button {
     background-color: $primary_color;
     border-radius: 5px;
     color: $secondary-color;
+    font-size: 13px;
   }
 }
 
-h3{
+h3 {
   text-align: center;
   color: $secondary-color;
 }
 
 
-#feed{
+
+body {
   margin: 20px;
   font-family: $font;
   color: $primary-color;

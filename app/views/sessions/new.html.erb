@@ -1,37 +1,12 @@
-<!-- <!DOCTYPE html>
-<head>
-<style>
-body {
-	position: center;
-}
-div {
-    width: 400px;
-    padding: 30px;
-    border: 2px solid black;
-    margin-top: 100px;
-    text-align: center;
-    font-size: 20px;
-    margin: 0 auto;
-}
 
-button {
-	border: 5px;
-	border-color: tan; 
-	background-color: #500000;
-	color: tan;
-	font-size: 13px;
-}
-
-</style>
-</head> -->
-<h1> Welcome to Feed Me </h1>
+<h1> Welcome to FeedMe </h1>
 <div id = "user-box">
 	
 <!-- error for sign-in added -->
 <h3> Have An Accout? Sign In </h3>
 
 <% if @sign_in_errors %>
-	<span class = "error"><%= @sign_in_errors %></span>
+	<span class = "error" style="color: red;"><%= @sign_in_errors %></span>
 <% end %>
 
 <br/><br/>
@@ -60,7 +35,7 @@ button {
 <h3> Sign Up </h3>
 <!-- error for sign-up added -->
 <% if @sign_up_errors %>
-	<span class = "error"><%= @sign_up_errors %></span>
+	<span class = "error" style="color: red;"><%= @sign_up_errors %></span>
 <% end %>
 <!-- ends here -->
 
@@ -80,6 +55,6 @@ button {
 		<div class="pure-controls">
 			<button class="pure-button pure-button-primary">Sign Up!</button>
 		</div>
-	</fieldset>
+	
 </form>
 </div>

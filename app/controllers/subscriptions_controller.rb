@@ -31,10 +31,12 @@ class SubscriptionsController < ApplicationController
 			if @user_sub.save
 				"render json: (@subscription) and return"
 			else
-				render status: 400, nothing: true
+				@subscription_errors = "Search result is already included"
+				"redirect_to (subscriptions) and return"
+				
 			end
 		else
-			render status: 400, nothing: true
+			"render status: (400, nothing: true) and return"
 		end
 		redirect_to '/subscriptions'
 	end
