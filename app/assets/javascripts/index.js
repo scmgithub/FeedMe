@@ -19,9 +19,16 @@ document.addEventListener('DOMContentLoaded', function() {
     xhr.open('GET', location.origin + '/user_subscriptions/twitter/' + id);
     xhr.addEventListener('load', function(){
       var tweets = JSON.parse(xhr.responseText);
-      console.log(tweets[0]);
+      var text;
       for(i=0; i < tweets.length; i++){
-      var tweetText = "<p><b>" + tweets[i].user.screen_name + ":</b> " + tweets[i].text + "</p";
+        var link = tweets[i].text.split(" ")
+          for(l=0; l<link.length; l++){
+            if (link[l].search('http://t.co') != -1){
+               link[l] = "<a href='" + link[l] + "'>" + link[l] + "</a>";
+               text = link.join(' ');
+            }
+          }
+      var tweetText = "<p><b>" + tweets[i].user.screen_name + ":</b> " + text + "</p";
       addStoryToDOM(tweetText, ul);
       }
     });
