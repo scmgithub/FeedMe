@@ -2,6 +2,12 @@ body {
     color: #777;
 }
 
+li{
+   .pure-button-primary.pure-button{
+        
+   }
+}
+
 .pure-img-responsive {
     max-width: 100%;
     height: auto;
@@ -27,12 +33,13 @@ This is the parent `<div>` that contains the menu and the content area.
     position: relative;
     padding-left: 0;
 }
-    #layout.active #menu {
+
+#layout.active #menu {
         left: 150px;
         width: 150px;
     }
 
-    #layout.active .menu-link {
+#layout.active .menu-link {
         left: 150px;
     }
 /*
@@ -53,12 +60,13 @@ The content `<div>` is where all your content goes.
      padding: 2.5em 2em 0;
      border-bottom: 1px solid #eee;
  }
-    .header h1 {
+
+.header h1 {
         margin: 0.2em 0;
         font-size: 3em;
         font-weight: 300;
     }
-     .header h2 {
+.header h2 {
         font-weight: 300;
         color: #ccc;
         padding: 0;
@@ -79,6 +87,11 @@ button {
      /*border is optional*/
      border-bottom:1px solid #444; 
      cursor: pointer;
+     color: #2DC6B9
+}
+
+.sourceLabel{
+    color: #BF9F3F;
 }
 
 /*
@@ -87,13 +100,14 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -150px; /* "#menu" width */
-    width: 250px;
+    /*margin-left: -150px; *//* "#menu" width */
+    width: 20%;
+    text-align: left;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000; /* so the menu or its navicon stays above all content */
+    z-index: 1; /* so the menu or its navicon stays above all content */
     background: #191818;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -101,7 +115,7 @@ appears on the left side of the page.
     /*
     All anchors inside the menu should be styled like this.
     */
-    #menu a {
+#menu a {
         color: #999;
         border: none;
         padding: 0.6em 0 0.6em 0.6em;
@@ -110,8 +124,18 @@ appears on the left side of the page.
     /*
     Remove all background/borders, since we are applying them to #menu.
     */
-     #menu .pure-menu,
-     #menu .pure-menu ul {
+.pure-form-stacked{
+
+    margin-top: 10px;
+    margin-left: 14px;
+}
+
+#menu .pure-menu-list{
+    margin-left: 14px;
+    margin-top: 15px;
+}
+
+#menu .pure-menu ul {
         border: none;
         background: transparent;
     }
@@ -119,36 +143,46 @@ appears on the left side of the page.
     /*
     Add that light border to separate items into groups.
     */
-    #menu .pure-menu ul,
-    #menu .pure-menu .menu-item-divided {
+
+#menu .pure-menu ul,
+
+#menu .pure-menu .menu-item-divided {
         border-top: 1px solid #333;
     }
         /*
         Change color of the anchor links on hover/focus.
         */
-        #menu .pure-menu li a:hover,
-        #menu .pure-menu li a:focus {
+#menu .pure-menu li a:hover,
+
+#menu .pure-menu li a:focus {
             background: #333;
         }
 
     /*
     This styles the selected menu item `<li>`.
     */
-    #menu .pure-menu-selected,
-    #menu .pure-menu-heading {
-        background: #BF9F3F;
-    }
+#menu .pure-menu-selected,
+
+#menu .pure-menu-heading {
+    background: #BF9F3F;
+    margin-left: 14px;
+    text-align: 14px;
+}
+
+#menu .pure-menu-heading {
+  padding: .5em .6em;
+}
         /*
         This styles a link within a selected menu item `<li>`.
         */
-        #menu .pure-menu-selected a {
+#menu .pure-menu-selected a {
             color: #fff;
         }
 
     /*
     This styles the menu heading.
     */
-    #menu .pure-menu-heading {
+#menu .pure-menu-heading {
         font-size: 110%;
         color: #fff;
         margin: 0;
@@ -179,32 +213,36 @@ small screens.
     padding: 2.1em 1.6em;
 }
 
-    .menu-link:hover,
-    .menu-link:focus {
+.menu-link:hover,
+
+.menu-link:focus {
         background: #000;
     }
 
-    .menu-link span {
+.menu-link span {
         position: relative;
         display: block;
     }
 
-    .menu-link span,
-    .menu-link span:before,
-    .menu-link span:after {
+.menu-link span,
+
+.menu-link span:before,
+
+.menu-link span:after {
         background-color: #fff;
         width: 100%;
         height: 0.2em;
     }
 
-        .menu-link span:before,
-        .menu-link span:after {
+.menu-link span:before,
+
+.menu-link span:after {
             position: absolute;
             margin-top: -0.6em;
             content: " ";
         }
 
-        .menu-link span:after {
+.menu-link span:after {
             margin-top: 0.6em;
         }
 
@@ -240,6 +278,37 @@ Hides the menu at `48em`, but modify this based on your app's needs.
         left: 150px;
     }
 }
+
+#logOut{
+    color: #2DC6B9;
+    margin-left: 14px;
+    margin-top: 10px;
+}
+
+#add{
+    color: #2DC6B9;
+}
+
+
+
+#refreshStoriesButton{
+    color: #2DC6B9;
+    margin-left: 14px;
+    margin-top: 10px;
+}
+
+#subsList{
+    margin-left: 14px;
+
+    button {
+        color: rgb(190, 64, 64);
+        font: inherit;
+        margin: 5px;
+    }
+
+}
+
+
 
 @media (max-width: 48em) {
     /* Only apply this when the window is small. Otherwise, the following
