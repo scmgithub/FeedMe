@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var getTwitter = function() {
     var ul = document.getElementById('newsFeed');
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:3000/user_subscriptions/twitter/' + id);
+    xhr.open('GET', location.origin + '/user_subscriptions/twitter/' + id);
     xhr.addEventListener('load', function(){
       var tweets = JSON.parse(xhr.responseText);
       for(i=0; i < tweets.length; i++){
@@ -96,9 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var setLiToStory = function(li, story) {
     li.innerHTML = "";
     var storyText = story
-    var p = document.createElement("p")
-    var storyTextNode = document.createTextNode(storyText);
-    li.appendChild(storyTextNode);
+    li.insertAdjecentHTML('beforeend', storyText)
+    //var storyTextNode = document.createTextNode(storyText);
+    //li.appendChild(storyTextNode);
   }
 
   var deleteSub = function() {
