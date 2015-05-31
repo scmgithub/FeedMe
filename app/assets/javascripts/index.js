@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var storytext = '';
 
         // Twitter feed
-        if (storylist[i].subname === 'twitter') {
+        if (storylist[i].subname === 'Twitter') {
             var thisStory = storylist[i].data;
             var link = thisStory.text.split(" ");
             for(l=0; l<link.length; l++) {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             addStoryToDOM(tweetText, ul, storylist[i].subid);
 
         // Google feed
-        } else if (storylist[i].subname === 'google') {
+        } else if (storylist[i].subname === 'Google') {
           var thisStory = JSON.parse(storylist[i].data).responseData;
           for (var k = 0; k < thisStory.results.length; k++) {
             storytext = "<p><b>" + thisStory.results[k].title + "</b><br> " + thisStory.results[k].content + "<a href='" + thisStory.results[k].unescapedUrl + "'target='_blank'>...more</a></p>";

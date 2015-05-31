@@ -21,9 +21,9 @@ class SubscriptionsController < ApplicationController
 	def create
 		if params[:name] === "NYTimes"
 			@subscription = Subscription.create(name: params[:name], keyword: params[:keyword], url: "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=#{params[:keyword]}&fl=web_url,snippet,source,headline,pub_date&api-key=aa1260c72c4d669a7ecd0d1aa8725430:6:8505067")
-		elsif params[:name] === "google"
+		elsif params[:name] === "Google"
 			@subscription = Subscription.create(name: params[:name], keyword: params[:keyword], url: "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=#{params[:keyword]}")
-		elsif params[:name] === "twitter"
+		elsif params[:name] === "Twitter"
 			@subscription = Subscription.create(name: params[:name], keyword: params[:keyword], url: params[:keyword])
 		end
 		if @subscription.save
