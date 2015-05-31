@@ -1,0 +1,38 @@
+$font: PT Sans Narrow, sans-serif;
+$primary-color: #34495e;
+$secondary-color: #BF9F3F;
+$tertiary-color: #20788C;
+
+#user-box {
+  border: 1px solid black;
+  width: 3/7 * 100%;
+  margin: 5% auto;
+  padding: 20px;
+}
+
+form {
+  .pure-button-primary.pure-button{
+    background-color: $primary_color;
+    border-radius: 5px;
+    color: $secondary-color;
+  }
+}
+
+h3{
+  text-align: center;
+  color: $secondary-color;
+}
+
+
+body{
+  margin: 20px;
+  font-family: $font;
+  color: $primary-color;
+  text-align: center;
+  font-size: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: $secondary-color;
+}

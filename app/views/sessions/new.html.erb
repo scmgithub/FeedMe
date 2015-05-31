@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <head>
 <style>
 body {
@@ -23,32 +23,36 @@ button {
 }
 
 </style>
-</head>
-
-<div id = "border">
+</head> -->
+<h1> Welcome to Feed Me </h1>
+<div id = "user-box">
+	
 <!-- error for sign-in added -->
-<h3> Sign In </h3>
+<h3> Have An Accout? Sign In </h3>
+
 <% if @sign_in_errors %>
 	<span class = "error"><%= @sign_in_errors %></span>
 <% end %>
+
 <br/><br/>
 <!-- ends here -->
 
 
-<form action="/session" method="POST">
-<label for = "user_name">
-	Username:
-</label>
-<input name="user_name" type="text">
-<br/>
+<form action="/session" method="POST" class="pure-form pure-form-aligned">
+	
+		<div class="pure-control-group">
+			<label for = "user_name">Username:</label>
+			<input name="user_name" type="text">
+		</div>
+		<div class="pure-control-group">
+			<label for = "password">Password:</label>
+			<input name="password" type="password"></br>
+		</div>
+		<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+		<div class="pure-controls">
+			<button class="pure-button pure-button-primary">Sign In</button>
+		</div>
 
-<label for = "password">
-	Password:
-</label>
-<input name="password" type="password">
-<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
-</br>
-<button>Sign In </button>
 </form>
 <br/><br/>
 
@@ -62,14 +66,20 @@ button {
 
 <br/><br/>
 
-<form action="/users" method="POST">
-	<label for = "name">Username:</label>
-	<input name = "name">
-	<br/>
-	<label for = "password">Password:</label>
-	<input name = "password" type = "password">
-	<input name = "authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	</br>
-	<button>Sign Up!</button>
+<form action="/users" method="POST" class="pure-form pure-form-aligned">
+	
+		<div class="pure-control-group">
+			<label for = "name">Username:</label>
+			<input name = "name">
+		</div>
+		<div class="pure-control-group">
+			<label for = "password">Password:</label>
+			<input name = "password" type = "password">
+		</div>
+		<input name = "authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<div class="pure-controls">
+			<button class="pure-button pure-button-primary">Sign Up!</button>
+		</div>
+	</fieldset>
 </form>
 </div>
