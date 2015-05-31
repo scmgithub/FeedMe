@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
 			session[:user_id] = @user.id
 			redirect_to "/subscriptions"
 		else
-			@sign_in_errors = 'User does not exist with that username and password'
+			@sign_in_errors = 'Incorrect username and/or password'
 			@user = User.new
 			render :new
 		end

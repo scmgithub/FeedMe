@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 			session[:user_id] = @user.id
 			redirect_to "/subscriptions"
 		else
-			@sign_up_errors = "This username is already taken"
+			@sign_up_errors = "That username is already taken.  Please choose another."
 			render "sessions/new"
 		end
 	end
