@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
     li.appendChild(subTextNode);
 
     var deleteButton = document.createElement('button');
+    
     deleteButton.innerHTML = "Delete";
     deleteButton.addEventListener('click', deleteSub);
     li.appendChild(deleteButton);
