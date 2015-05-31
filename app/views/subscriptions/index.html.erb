@@ -7,6 +7,7 @@
     </a>
 
     <div id="menu">
+
       <div class="pure-menu">
         <p class="pure-menu-heading">Feed Me</p>
           <button id="refreshStoriesButton" href="/subscription">Refresh Articles</button>
@@ -23,6 +24,7 @@
 			
       <form class="pure-form-stacked" method="POST" action="/subscriptions">
 				<label class="sourceLabel" for = "name">New York Times</label>
+
 				<input name = "keyword" type = "text">
 				<input name = "name" value = "NYTimes" type = "hidden">
 				<input name = "authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
@@ -53,7 +55,7 @@
     <div id="main">
         <div class="header">
             <h1>FeedMe</h1>
-            <h2>An awsome news feed</h2>
+            <h2>An awesome news feed</h2>
         </div>
         
         <div class="content">
@@ -62,7 +64,6 @@
         </div>
     </div>
 </div>
-
 
 
 
