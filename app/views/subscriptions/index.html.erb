@@ -1,6 +1,12 @@
 <header>
   <h1>FeedMe</h1>
 </header>
+
+<% if @subscription_errors %>
+	<span class = "error" style="color: red;">
+		<%= @subscription_errors %></span>
+	<% end %>
+
 <form method="POST" action="/session">
 	<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
 	<input name="_method" value="DELETE" type="hidden">

@@ -11,20 +11,21 @@ $tertiary-color: #20788C;
 }
 
 form {
-  .pure-button-primary.pure-button{
+  .pure-button-primary.pure-button {
     background-color: $primary_color;
     border-radius: 5px;
     color: $secondary-color;
+    font-size: 13px;
   }
 }
 
-h3{
+h3 {
   text-align: center;
   color: $secondary-color;
 }
 
 
-body{
+body {
   margin: 20px;
   font-family: $font;
   color: $primary-color;
