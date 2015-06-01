@@ -3,58 +3,52 @@
 <div id = "user-box">
 	
 <!-- error for sign-in added -->
-<h3> Have An Accout? Sign In </h3>
-
+<h3> Have An Account? Sign In </h3>
 <% if @sign_in_errors %>
 	<span class = "error" style="color: red;"><%= @sign_in_errors %></span>
 <% end %>
-
-<br/><br/>
 <!-- ends here -->
 
 
-<form action="/session" method="POST" class="pure-form pure-form-aligned">
+<form action="/session" method="POST" class="pure-form">
 	
-		<div class="pure-control-group">
+		<div>
+
 			<label for = "user_name">Username:</label>
 			<input name="user_name" type="text">
-		</div>
-		<div class="pure-control-group">
+
 			<label for = "password">Password:</label>
-			<input name="password" type="password"></br>
-		</div>
-		<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
-		<div class="pure-controls">
-			<button class="pure-button pure-button-primary">Sign In</button>
+			<input name="password" type="password">
+
+			<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+			
+			<button id="signIn" class="pure-button pure-button-primary">Sign In</button>
+			
+
 		</div>
 
 </form>
-<br/><br/>
 
 
-<h3> Sign Up </h3>
+<h3> New? Sign Up </h3>
 <!-- error for sign-up added -->
 <% if @sign_up_errors %>
 	<span class = "error" style="color: red;"><%= @sign_up_errors %></span>
 <% end %>
 <!-- ends here -->
 
-<br/><br/>
-
-<form action="/users" method="POST" class="pure-form pure-form-aligned">
-	
-		<div class="pure-control-group">
-			<label for = "name">Username:</label>
-			<input name = "name">
-		</div>
-		<div class="pure-control-group">
-			<label for = "password">Password:</label>
-			<input name = "password" type = "password">
-		</div>
+<form action="/users" method="POST" class="pure-form">
+			
+		<label for = "name">Username:</label>
+		<input name = "name" type="text">	
+		
+		<label for = "password">Password:</label>
+		<input name = "password" type = "password">
+		
 		<input name = "authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		<div class="pure-controls">
-			<button class="pure-button pure-button-primary">Sign Up!</button>
-		</div>
+		
+		<button class="pure-button pure-button-primary">Sign Up!</button>
+		
 	
 </form>
 </div>

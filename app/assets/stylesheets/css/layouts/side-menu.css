@@ -6,6 +6,9 @@ li {
     padding: 5px;   
 }
 
+h6{
+    text-align: center;
+}
 .pure-img-responsive {
     max-width: 100%;
     height: auto;
@@ -104,6 +107,11 @@ button {
     list-style-type: none;
 }
 
+.pure-control-group{
+
+}
+
+
 /*
 The `#menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
 appears on the left side of the page.
@@ -134,9 +142,10 @@ appears on the left side of the page.
     /*
     Remove all background/borders, since we are applying them to #menu.
     */
-.pure-form-stacked{
+.pure-form{
     margin-top: 10px;
     margin-left: 14px;
+    margin-bottom: 30px;
 }
 
 #menu .pure-menu-list{
@@ -168,6 +177,11 @@ appears on the left side of the page.
     /*
     This styles the selected menu item `<li>`.
     */
+
+.pure-button-primary{
+    background: black;
+}
+
 #menu .pure-menu-selected,
 
 #menu .pure-menu-heading {
