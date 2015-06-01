@@ -1,6 +1,6 @@
-require 'HTTParty'
-require 'json'
-require 'twitter'
+# require 'HTTParty'
+# require 'json'
+# require 'twitter'
 
 class UserSubscriptionsController < ApplicationController
 	protect_from_forgery with: :null_session
