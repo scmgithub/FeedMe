@@ -101,6 +101,7 @@ button {
 
 .sourceLabel{
     color: #BF9F3F;
+    margin-left: 14px;
 }
 
 #newsFeed{
@@ -146,6 +147,10 @@ appears on the left side of the page.
     margin-top: 10px;
     margin-left: 14px;
     margin-bottom: 30px;
+}
+
+.pure-form-stacked{
+    margin-left: 14px;
 }
 
 #menu .pure-menu-list{
