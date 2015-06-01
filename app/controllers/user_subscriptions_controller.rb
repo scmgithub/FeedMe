@@ -27,7 +27,7 @@ class UserSubscriptionsController < ApplicationController
 	def stories
 		@content = []
 
-		client = Twitter::REST::Client.new do |config| #Peter's twitter developer credentials
+		client = Twitter::REST::Client.new do |config| #Peter's Twitter developer credentials
 		  config.consumer_key        = Rails.application.secrets.consumer_key
 		  config.consumer_secret     = Rails.application.secrets.consumer_secret
 		  config.access_token        = Rails.application.secrets.access_token
@@ -37,7 +37,7 @@ class UserSubscriptionsController < ApplicationController
 		@user_subscriptions = UserSubscription.where("user_id = ?", params[:id])
 		if @user_subscriptions
 			@user_subscriptions.each do |sub|
-				if sub.subscription.name == 'twitter'
+				if sub.subscription.name == 'Twitter'
 					client.search(sub.subscription.url).take(10).map(&:attrs).each do |tweet|
 						@content.push( {
 							subname: sub.subscription.name,
