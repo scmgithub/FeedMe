@@ -2,18 +2,14 @@
 <div id="layout">
     <!-- Menu toggle -->
     <a href="#menu" id="menuLink" class="menu-link">
-        <!-- Hamburger icon -->
-        <span></span>
     </a>
 
     <div id="menu">
 
       <div class="pure-menu">
         <p class="pure-menu-heading">Feed Me</p>
-          <button id="refreshStoriesButton" href="/subscription">Refresh Articles</button>
+        <button id="refreshStoriesButton" href="/subscription">Refresh Articles</button>
             
-		
-
 			<form class="pure-form-stacked" method="POST" action="/subscriptions">
 				<label class="sourceLabel" for = "name">Twitter</label>
 				<input name = "keyword">
@@ -24,7 +20,6 @@
 			
       <form class="pure-form-stacked" method="POST" action="/subscriptions">
 				<label class="sourceLabel" for = "name">New York Times</label>
-
 				<input name = "keyword" type = "text">
 				<input name = "name" value = "NYTimes" type = "hidden">
 				<input name = "authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
@@ -44,23 +39,28 @@
      <ul id="subsList" class="pure-menu-list">
      </ul>
 
-        <form  method="POST" action="/session">
-  				<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
-  				<input name="_method" value="DELETE" type="hidden">
-  				<button id="logOut" class="button-xsmall pure-button button-error">Logout</button>
-  			</form>
+      <form  method="POST" action="/session">
+  			<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
+  			<input name="_method" value="DELETE" type="hidden">
+  			<button id="logOut" class="button-xsmall pure-button button-error">Logout</button>
+  		</form>
+
       </div>
+
     </div>
 
     <div id="main">
+        
         <div class="header">
             <h1>FeedMe</h1>
             <h2>An awesome news feed</h2>
         </div>
         
         <div class="content">
- 		<ul id="newsFeed">
-		</ul>
+
+ 		       <ul id="newsFeed">
+		       </ul>
+
         </div>
     </div>
 </div>
