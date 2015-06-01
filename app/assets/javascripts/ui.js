@@ -1,8 +1,9 @@
-(function (window, document) {
+document.addEventListener('DOMContentLoaded', function() {
+// (function (window, document) {
 
     var layout   = document.getElementById('layout'),
-    var menu     = document.getElementById('menu'),
-    var menuLink = document.getElementById('menuLink');
+        menu     = document.getElementById('menu'),
+        menuLink = document.getElementById('menuLink');
 
     function toggleClass(element, className) {
         var classes = element.className.split(/\s+/),
@@ -32,4 +33,5 @@
         toggleClass(menuLink, active);
     };
 
-}(this, this.document));
+// }(this, this.document));
+});
