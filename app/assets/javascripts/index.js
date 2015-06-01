@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var deleteButton = document.createElement('button');
     deleteButton.innerHTML = " Delete";
+    $(deleteButton).addClass("deleteSub");
     deleteButton.addEventListener('click', deleteSub);
     li.appendChild(deleteButton);
   }
