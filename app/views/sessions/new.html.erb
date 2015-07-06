@@ -1,7 +1,11 @@
 
 <h1> Welcome to FeedMe </h1>
+
 <div id = "user-box">
-	
+<h4>To access the site use:<br>
+Username: bruce,
+Password: password
+</h4>
 <!-- error for sign-in added -->
 <h3> Have An Account? Sign In </h3>
 <% if @sign_in_errors %>
@@ -9,9 +13,8 @@
 <% end %>
 <!-- ends here -->
 
-
 <form action="/session" method="POST" class="pure-form">
-	
+
 		<div>
 
 			<label for = "user_name">Username:</label>
@@ -21,9 +24,9 @@
 			<input name="password" type="password">
 
 			<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden">
-			
+
 			<button id="signIn" class="pure-button pure-button-primary">Sign In</button>
-			
+
 
 		</div>
 
@@ -38,18 +41,18 @@
 <!-- ends here -->
 
 <form action="/users" method="POST" class="pure-form">
-			
+
 		<label for = "name">Username:</label>
-		<input name = "name" type="text">	
-		
+		<input name = "name" type="text">
+
 		<label for = "password">Password:</label>
 		<input name = "password" type = "password">
-		
+
 		<input name = "authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		
+
 		<button class="pure-button pure-button-primary">Sign Up!</button>
-		
-	
+
+
 </form>
 </div>
 
